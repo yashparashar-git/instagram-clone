@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
+  //all of data association
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"
@@ -8,7 +9,7 @@ const postSchema = mongoose.Schema({
   caption: String,
   like: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: "user" 
   }],
   comments: {
     type: Array,
@@ -18,6 +19,7 @@ const postSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  
   shares: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"

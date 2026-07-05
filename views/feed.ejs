@@ -31,6 +31,10 @@
         </a>
         <% }) %>
     </div>
+
+
+
+    
     <div class="posts parent mb-20">
       <% posts.reverse().forEach(function(post){ %>
         <div class="post mt-10 w-full min-h-[50vh]">
@@ -51,8 +55,8 @@
           </div>
           <div class="options w-full px-4 flex justify-between items-center text-[1.4rem]">
             <div class="flex gap-3 mt-2">
+              <i class="heart ri-heart-3-line"></i>
               <% if(post.like.indexOf(user._id)===-1){ %>
-                <i class="heart ri-heart-3-line"></i>
                 <% } else { %>
                   <i class="heart ri-heart-3-fill text-red-500"></i>
                   <% } %>

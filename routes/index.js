@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 const passport = require("passport");
 const localStrategy = require("passport-local");
+// const upload=require("upload")
 const userModel = require("./users");
 const postModel = require("./posts");
-const storyModel = require("./story");
+const storyModel = require("./story"); 
 passport.use(new localStrategy(userModel.authenticate()));
 const upload = require("./multer");
 const utils = require("../utils/utils");
@@ -144,16 +145,23 @@ router.get("/upload", isLoggedIn, async function (req, res) {
   res.render("upload", { footer: true, user });
 });
 
-router.post("/update", isLoggedIn, async function (req, res) {
+router.post("/update", upload.single("image") ,async function (req, res) {
   const user = await userModel.findOneAndUpdate(
-    { username: req.session.passport.user },
-    { username: req.body.username, name: req.body.name, bio: req.body.bio },
+    { username: req.session.passport.user },//userfind
+    { username: req.body.username, name: req.body.name, bio: req.body.bio },//userdeatailsupdate
     { new: true }
   );
-  req.login(user, function (err) {
-    if (err) throw err;
-    res.redirect("/profile");
-  });
+  if(req.file){
+    user.profileImage=req.file.filename;
+  }
+  // user.profileImage=req.file.filename;
+   await user.save();
+    res.redirect("/profile");       //changes
+
+  // req.login(user, function (err) {
+  //   if (err) throw err;
+  //   res.redirect("/profile");
+  // });
 });
 
 router.post(
@@ -202,7 +210,7 @@ router.post(
 );
 
 // POST
-
+//user authentication
 router.post("/register", function (req, res) {
   const user = new userModel({
     username: req.body.username,
@@ -220,13 +228,13 @@ router.post("/register", function (req, res) {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/feed",
+    successRedirect: "/profile",
     failureRedirect: "/login",
   }),
   function (req, res) {}
 );
 
-router.get("/logout", function (req, res) {
+router.get("/logout", function (req, res,next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
@@ -242,5 +250,6 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
   }
 }
+
 
 module.exports = router;
