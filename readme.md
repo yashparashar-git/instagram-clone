@@ -128,10 +128,6 @@ nodemon
 ## 👨‍💻 Author
 
 **Yash Parashar**
-
-- GitHub: https://github.com/yashparashar-git
-- LinkedIn: https://linkedin.com/in/Yash Parashar
-
 ---
 
 ## ⭐ Support
