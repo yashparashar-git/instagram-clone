@@ -130,7 +130,7 @@ nodemon
 **Yash Parashar**
 
 - GitHub: https://github.com/yashparashar-git
-- LinkedIn: https://linkedin.com/in/yash parashar
+- LinkedIn: https://linkedin.com/in/yashparashar
 
 ---
 
